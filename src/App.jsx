@@ -6,10 +6,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<DashBoard />} />
-      <Route
-        path="/datewise-summary"
-        element={<DatewisePage />}
-      />
+      <Route path="/datewise-summary" element={<DatewisePage />} />
     </Routes>
   );
 }
