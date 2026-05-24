@@ -8,7 +8,8 @@ import { DatewisePage } from "./DatewisePage";
 const API_URL = "https://backend-vryp.onrender.com/api/users";
 
 export function DashBoard() {
-  const navigate = useNavigate();
+
+    const [tickets, setTickets] = useState([]);
   const [content, setContent] = useState("Dashboard");
   const [filteredTickets, setFilteredTickets] = useState([]);
   const [expandedRow, setExpandedRow] = useState(null);
@@ -86,6 +87,7 @@ export function DashBoard() {
         params,
       });
 
+      setTickets(res.data.tickets);
       setFilteredTickets(res.data.tickets);
 
       setAnalytics(res.data.analytics);
@@ -115,46 +117,45 @@ export function DashBoard() {
 
   // ================= FILTER TABLE FROM ANALYTICS =================
 
-  useEffect(() => {
-    if (!selectedAnalyticsFilter) {
-      fetchTickets();
-      return;
-    }
+useEffect(() => {
+  if (!selectedAnalyticsFilter) {
+    setFilteredTickets(tickets);
+    return;
+  }
 
-    let filtered = [...filteredTickets];
+  let filtered = [...tickets];
 
-    switch (selectedAnalyticsFilter) {
-      case "active":
-        filtered = filtered.filter((ticket) =>
-          ["In Progress", "Test", "On Hold"].includes(ticket.Status),
-        );
+  switch (selectedAnalyticsFilter) {
+    case "active":
+      filtered = filtered.filter((ticket) =>
+        ["In Progress", "Test", "On Hold"].includes(ticket.Status),
+      );
+      break;
 
-        break;
+    case "readyToDeploy":
+      filtered = filtered.filter(
+        (ticket) => ticket.Status === "Ready to Deploy",
+      );
+      break;
 
-      case "readyToDeploy":
-        filtered = filtered.filter(
-          (ticket) => ticket.Status === "Ready to Deploy",
-        );
+    case "done":
+      filtered = filtered.filter(
+        (ticket) => ticket.Status === "Done",
+      );
+      break;
 
-        break;
+    case "critical":
+      filtered = filtered.filter(
+        (ticket) => ticket.Priority === "High",
+      );
+      break;
 
-      case "done":
-        filtered = filtered.filter((ticket) => ticket.Status === "Done");
+    default:
+      break;
+  }
 
-        break;
-
-      case "critical": {
-        filtered = filtered.filter((ticket) => ticket.Priority === "High");
-
-        break;
-      }
-
-      default:
-        break;
-    }
-
-    setFilteredTickets(filtered);
-  }, [selectedAnalyticsFilter]);
+  setFilteredTickets(filtered);
+}, [selectedAnalyticsFilter, tickets]);
 
   // ================= CLEAR FILTERS =================
 
