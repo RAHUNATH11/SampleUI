@@ -175,21 +175,30 @@ export function DashBoard() {
       {/* ================= HEADER ================= */}
 
       <div className="top-header">
-        <h1 className="app-title">Cipher Zero</h1>
+        <h1 className="app-title">DeliveryIQ</h1>
 
-        <p className="app-subtitle">Project Management Dashboard</p>
       </div>
 
       {/* ================= NAVBAR ================= */}
 
       <div className="navbar-container">
         <div className="navbar-left">
-          <button className="nav-button active-nav">
+          <button
+            className={
+              "nav-button " + (content === "Dashboard" ? "active-nav" : "")
+            }
+            onClick={() => setContent("Dashboard")}
+          >
             <span className="nav-icon">📊</span>
             Dashboard
           </button>
 
-          <button className="nav-button" onClick={() => setContent("DateWise")}>
+          <button
+            className={
+              "nav-button " + (content === "DateWise" ? "active-nav" : "")
+            }
+            onClick={() => setContent("DateWise")}
+          >
             <span className="nav-icon">📈</span>
             Datewise Summary
           </button>

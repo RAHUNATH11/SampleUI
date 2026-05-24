@@ -54,10 +54,8 @@ export const DatewisePage = ({ onBack }) => {
   return (
     <div className="datewise-container">
       <div className="page-header">
-        <h1>AI Daily Ticket Updates</h1>
-        <button className="back-btn" onClick={onBack}>
-          Back To Dashboard
-        </button>
+        <h1>Daily Ticket Updates</h1>
+       
       </div>
 
       <div className="month-title">
@@ -83,7 +81,7 @@ export const DatewisePage = ({ onBack }) => {
                 {!isLast && <div className="line"></div>}
               </div>
               <div className="timeline-content">
-                <h3>Daily AI Summary</h3>
+                {/* <h3>Daily AI Summary</h3> */}
                 {/* Split by newline if needed, otherwise just display */}
                 {item.AI_Summary.split("\n").map((para, i) => (
                   <p key={i}>{para}</p>
