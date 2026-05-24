@@ -1,17 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import axios from 'axios';
 import './CSS/Datewise.css';
 
 const API_URL = 'http://127.0.0.1:5000/api/datewise';
 
-const DatewisePage = ({ onBack }) => {
+export const DatewisePage = ({ onBack }) => {
   const [timelineData, setTimelineData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  useEffect(() => {
-    fetchTimeline();
-  }, []);
 
   const fetchTimeline = async () => {
     setLoading(true);
@@ -25,6 +21,12 @@ const DatewisePage = ({ onBack }) => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchTimeline();
+  }, []);
+
+  
 
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
@@ -78,5 +80,3 @@ const DatewisePage = ({ onBack }) => {
     </div>
   );
 };
-
-export default DatewisePage;
